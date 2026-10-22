@@ -38,12 +38,12 @@ Model weights, inference code, technical reports, and model cards will be releas
 
 **HeTongEval：面向低资源多语种与多模态基础模型的开放评测与动态监测平台**
 
-The planned evaluation ecosystem consists of:
+The following repository entry points are available; evaluation implementations, benchmark data, and rankings remain under development:
 
-- **HeTongEval** — Unified Evaluation and Monitoring Framework
-- **HeTongBench** — Multilingual and Multimodal Benchmark Suite
-- **HeTongRank** — Foundation Model Leaderboards
-- **HeTongReport** — Evaluation and Diagnostic Reports
+- **[HeTongEval](https://github.com/MUC-HeTong/HeTongEval)** — Unified Evaluation and Monitoring Framework
+- **[HeTongBench](https://github.com/MUC-HeTong/HeTongBench)** — Multilingual and Multimodal Benchmark Suite
+- **[HeTongRank](https://github.com/MUC-HeTong/HeTongRank)** — Foundation Model Leaderboards
+- **HeTongReport** — Planned Evaluation and Diagnostic Reports
 
 ## Research Directions | 研究方向
 
