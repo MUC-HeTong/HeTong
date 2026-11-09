@@ -1,0 +1,39 @@
+{
+  "schema_version": "current_kb_exact_retrieval_policy_v1",
+  "strategy": "single",
+  "directions": {
+    "bo2zh": {
+      "source_surfaces": ["bo_canonical", "observed_bo_surface_alias"],
+      "target": "zh_term"
+    },
+    "zh2bo": {
+      "source_surfaces": ["zh_term"],
+      "target": "bo_canonical"
+    }
+  },
+  "eligibility": {
+    "unit": "matched source surface",
+    "unique_distinct_target_required": true,
+    "bidirectional_conflict": "block",
+    "opposite_direction_conflict": "retain_with_provenance",
+    "ambiguous_match": "do_not_return_target",
+    "no_hit": "do_not_return_target"
+  },
+  "overlap_resolution": "A higher-ranked matched surface suppresses lower-ranked overlapping surfaces before HIT selection; this prevents a shorter canonical prefix from bypassing an ambiguous alias surface.",
+  "ranking": [
+    "normalized_source_surface_length_desc",
+    "raw_source_surface_length_desc",
+    "source_coverage_ratio_desc",
+    "source_count_desc",
+    "source_pair_count_desc",
+    "match_start_asc",
+    "matched_source_surface_asc",
+    "selected_terminology_id_asc"
+  ],
+  "retriever_input_fields": ["record_id", "direction", "source"],
+  "prohibited_retriever_input_fields": [
+    "reference", "source_term", "target_term", "canonical_target_term",
+    "surface_target_terms", "terminology_id"
+  ],
+  "semantic_claim": "Structural uniqueness under the current terminology resource is not semantic or human verification."
+}

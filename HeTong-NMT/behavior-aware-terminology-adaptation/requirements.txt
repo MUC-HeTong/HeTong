@@ -1,0 +1,15 @@
+# Recorded BATA LoRA training environment (Python 3.10.20, CUDA 12.4).
+# Install the CUDA wheel first as described in README.md.
+torch==2.6.0+cu124
+transformers==5.14.1
+peft==0.18.0
+accelerate==1.14.0
+
+# Unified evaluation imports these packages; exact versions were not retained.
+jieba
+rouge-score
+sacrebleu
+
+# run_inference.py also requires vLLM. Its exact version for the paper-mainline
+# run was not recorded, so install a release compatible with the local CUDA,
+# PyTorch, model implementation, and LoRA adapter rather than pinning a guess.
