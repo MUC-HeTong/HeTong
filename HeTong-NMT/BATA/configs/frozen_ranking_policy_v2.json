@@ -1,0 +1,20 @@
+{
+  "aliases_sha256": "666d0f6b9fe114fd32801af9c7ea1fbc3a713cb85c6e00da5171f1cc6a83c9fa",
+  "ambiguity_policy": "v1-equivalent",
+  "entries_sha256": "9bf3c7551ae40877fcf907fa8f177ca586f677ad9978bf649ab45df758112023",
+  "feature_order": [
+    "boundary_complete_desc",
+    "normalized_length_desc",
+    "raw_length_desc",
+    "coverage_desc",
+    "source_count_desc",
+    "source_pair_count_desc",
+    "start_asc",
+    "surface_asc",
+    "term_id_asc"
+  ],
+  "final2000_used_for_selection": false,
+  "schema_version": "current_kb_exact_frozen_ranking_policy_v2",
+  "selected_policy": "R5",
+  "selection_dataset": "BehaviorV5Dev538"
+}
