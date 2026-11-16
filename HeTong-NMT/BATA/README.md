@@ -1,67 +1,62 @@
 # BATA: Behavior-Aware Terminology Adaptation
 
-**BATA** is a terminology adaptation framework for low-resource Tibetan–Chinese machine translation. It improves the use of domain-specific bilingual terminology by adapting a translation model according to its observed terminology behavior, rather than treating all terminology examples in the same way.
+**BATA** is a framework for improving specialized terminology translation in low-resource Tibetan–Chinese machine translation. It uses a translation model's observed behavior on terminology examples to guide lightweight model adaptation, and retrieves bilingual terms at inference time.
 
-## Overview
+## How BATA works
 
-A translation backbone may translate a sentence fluently but fail to produce a required technical term, even when the correct bilingual terminology is available. BATA addresses this problem in three steps:
+BATA is built on **TC-Backbone**, a Tibetan–Chinese translation model adapted from Hy-MT2-7B using approximately 570K parallel sentence pairs. Rather than training on all terminology examples uniformly, BATA groups examples according to whether the backbone can produce the target term:
 
-1. **Build a Tibetan–Chinese translation backbone.** Hy-MT2-7B is adapted with approximately 570K Tibetan–Chinese parallel sentence pairs to obtain the TC-Backbone.
-2. **Organize terminology examples by model behavior.** Examples are grouped as *Stable Success*, *Recoverable Failure*, or *Residual Failure*, according to whether the backbone realizes the target term with or without terminology conditioning.
-3. **Train direction-specific LoRA adapters.** The TC-Backbone is kept frozen while separate adapters are trained for Tibetan-to-Chinese (BO→ZH) and Chinese-to-Tibetan (ZH→BO) translation.
+- **Stable Success:** the term is translated correctly without an explicit terminology prompt.
+- **Recoverable Failure:** the term is produced correctly when the bilingual terminology is supplied.
+- **Residual Failure:** the term remains incorrect after terminology conditioning.
 
-At inference time, a direction-aware terminology retrieval module finds relevant bilingual terms in the source sentence, filters ambiguous mappings, and supplies valid terms as translation conditions. The corresponding direction-specific adapter is used when a term is retrieved; otherwise, translation falls back to the TC-Backbone.
-
-## Method
+These behavior patterns guide the training of two separate LoRA adapters—one for BO→ZH and one for ZH→BO—while the TC-Backbone remains frozen. At inference time, direction-aware retrieval finds relevant source-side terms, filters ambiguous mappings, and supplies valid bilingual terms to the corresponding adapter. If no eligible term is retrieved, the system uses the backbone without a terminology adapter.
 
 <p align="center">
-  <img src="assets/figure3_bata_framework.svg" alt="BATA framework" width="90%" />
+  <img src="assets/figure3_bata_framework.svg" alt="BATA framework" width="88%" />
 </p>
-<p align="center"><sub>Overview of BATA: terminology retrieval, the TC-Backbone, and behavior-aware direction-specific LoRA adaptation.</sub></p>
-
-The three behavior groups play different roles in adaptation:
-
-- **Stable Success:** the backbone already produces the target terminology without an explicit term prompt.
-- **Recoverable Failure:** the backbone misses the term, but can produce it when the bilingual term is supplied.
-- **Residual Failure:** the target term is still not correctly realized after terminology conditioning.
-
-The retrieval component uses direction-specific lexical matching and deterministic filtering. It is not semantic-vector retrieval or constrained decoding. The released final policy selects a single eligible candidate (top-1) and rejects unresolved ambiguous mappings.
+<p align="center"><sub>BATA combines a Tibetan–Chinese translation backbone, direction-aware terminology retrieval, and behavior-aware direction-specific LoRA adaptation.</sub></p>
 
 ## Terminology resource
 
-The terminology resource contains **53,843 raw records**, consolidated into **45,432 unique normalized bilingual pairs**. Domain labels are resolved for **44,974 pairs (98.99%)**, using a taxonomy of nine first-level domains and 21 second-level categories.
+The terminology inventory contains **53,843 raw records**, consolidated into **45,432 unique normalized bilingual pairs**. Domain labels are available for **44,974 pairs (98.99%)**, organized into nine first-level domains and 21 second-level categories.
 
 <p align="center">
-  <img src="assets/figure1_data_construction.svg" alt="Terminology resource and behavior-aware data construction" width="88%" />
+  <img src="assets/figure1_data_construction.svg" alt="Terminology resource and adaptation-data construction" width="84%" />
 </p>
-<p align="center"><sub>Terminology collection and normalization, terminology-conditioned sentence construction, and behavior-aware adaptation-data preparation.</sub></p>
+<p align="center"><sub>Construction of the terminology resource, terminology-conditioned sentence data, and behavior-aware adaptation data.</sub></p>
 
-The paper reports 30,366 terminology-conditioned sentence instances and 2,677 behavior-aware instances (2,137 for training and 540 for development). The domain distribution is summarized in the paper; see Figure 2 in the manuscript for the full taxonomy visualization.
+<p align="center">
+  <img src="assets/figure2_domain_distribution.svg" alt="Distribution of terminology pairs across nine first-level domains" width="48%" />
+</p>
+<p align="center"><sub>Distribution of the 44,974 terminology pairs with resolved domain labels.</sub></p>
 
-## Main results
+The paper also reports 30,366 terminology-conditioned sentence instances and 2,677 behavior-aware instances (2,137 training and 540 development examples).
 
-On the oracle-terminology evaluation, BATA obtains **91.25% Strict TermAcc** for BO→ZH and **83.30%** for ZH→BO. Compared with Random LoRA under matched training-example counts and optimizer updates, BATA improves Strict TermAcc by **4.50** and **48.95 percentage points**, and corpus BLEU by **1.76** and **3.87 points**, respectively.
+## Results at a glance
 
-Retrieval-based evaluation shows the benefit of automatically supplying terminology. The paper also reports a trade-off on general translation benchmarks: terminology-triggered adapter activation can affect general translation quality. See the paper for the complete evaluation, ablations, and analysis.
+On the oracle-terminology evaluation, BATA achieves **91.25% Strict TermAcc** for BO→ZH and **83.30%** for ZH→BO. Compared with Random LoRA under matched training-example counts and optimizer updates, it improves Strict TermAcc by **4.50** and **48.95 percentage points**, and corpus BLEU by **1.76** and **3.87 points**, respectively.
 
-## Repository contents
+Retrieval-based evaluation demonstrates the benefit of automatically supplying terminology. The paper also reports a trade-off between terminology intervention and general translation quality; see the paper for the full evaluation and analysis.
+
+## Repository structure
 
 ```text
 BATA/
 ├── README.md
-├── assets/                 # Paper figures used in this README
-├── configs/                # LoRA and retrieval/ranking configurations
+├── assets/                 # Paper figures
+├── configs/                # Training and retrieval configurations
 ├── requirements.txt
-├── tests/                  # Retrieval, inference-pipeline, and metric tests
+├── tests/
 └── terminology_v2/
-    ├── stage1_behavior_dataset_v5/   # Behavior-aware dataset builder
+    ├── stage1_behavior_dataset_v5/   # Behavior-data builder
     ├── stage2_lora_training_v1/      # Direction-specific LoRA training
     ├── rag_integration_v1/            # Terminology indexing and retrieval
     ├── rag_lora_final2000/            # Prompting, inference, and evaluation
     └── unified_quality_evaluation_v1/ # Translation and terminology metrics
 ```
 
-## Setup
+## Running the code
 
 The recorded LoRA training environment uses Python 3.10.20, PyTorch 2.6.0+cu124, Transformers 5.14.1, PEFT 0.18.0, and Accelerate 1.14.0.
 
@@ -73,24 +68,7 @@ python -m pip install --index-url https://download.pytorch.org/whl/cu124 'torch=
 python -m pip install -r requirements.txt
 ```
 
-Inference additionally requires a compatible vLLM installation. Its exact version in the paper-mainline run was not retained, so it is not pinned in this repository.
-
-## Data and model requirements
-
-This repository contains the implementation and configuration files, but does **not** distribute model checkpoints, LoRA adapter weights, source corpora, terminology databases, behavior/evaluation datasets, or generated retrieval results.
-
-To run the full pipeline, prepare the following resources locally:
-
-- The TC-Backbone checkpoint (initialized from Hy-MT2-7B and fine-tuned for Tibetan–Chinese translation).
-- The bilingual terminology entries and aliases.
-- The upstream candidate pools required by the behavior-dataset builder.
-- The Final2000 evaluation records and the development/stability data required by retrieval-policy preparation.
-
-The upstream candidate-pool generation stages and the original TC-Backbone training manifest are not included. Consequently, a fresh checkout cannot reproduce the complete data-construction pipeline from raw corpora alone.
-
-## Training
-
-Set the local paths first:
+Set the local model and data paths before running the scripts:
 
 ```bash
 export BATA_TERMINOLOGY_ROOT="$PWD/terminology_v2"
@@ -98,33 +76,29 @@ export BATA_PROJECT_ROOT="$PWD"
 export BATA_BASE_MODEL="/path/to/TC-Backbone"
 ```
 
-Build the behavior-aware dataset (requires the upstream candidate pools described above), then train the adapters independently:
+Build the behavior-aware dataset and train the two adapters:
 
 ```bash
 python terminology_v2/stage1_behavior_dataset_v5/build_behavior_dataset_v5.py
-
 python terminology_v2/stage2_lora_training_v1/train_direction.py --direction bo2zh
 python terminology_v2/stage2_lora_training_v1/train_direction.py --direction zh2bo
 ```
 
-## Inference and evaluation
-
-Inference requires the TC-Backbone, trained direction-specific adapters, Final2000 records, and the prepared retrieval outputs. Run the alignment/preflight check before generation:
+For inference, prepare the Final2000 records, retrieval outputs, TC-Backbone, and trained adapters. Run the alignment check before generation:
 
 ```bash
 python terminology_v2/rag_lora_final2000/src/verify_alignment.py
-
 python terminology_v2/rag_lora_final2000/src/run_inference.py --direction bo2zh --batch-size 32
 python terminology_v2/rag_lora_final2000/src/run_inference.py --direction zh2bo --batch-size 32
 ```
 
-Evaluate the generated predictions:
+Inference additionally requires a vLLM installation compatible with the local PyTorch/CUDA environment. The exact vLLM version used in the paper-mainline run was not retained.
 
-```bash
-python terminology_v2/rag_lora_final2000/src/evaluate.py --direction bo2zh
-python terminology_v2/rag_lora_final2000/src/evaluate.py --direction zh2bo
-python terminology_v2/rag_lora_final2000/src/build_summary.py
-```
+## Data and checkpoints
+
+This repository provides the implementation and configuration files. It does **not** distribute model checkpoints, LoRA adapter weights, source corpora, terminology databases, behavior/evaluation datasets, or generated retrieval results.
+
+Full execution therefore requires authorized local copies of the TC-Backbone checkpoint, bilingual terminology files, upstream candidate pools, and evaluation/retrieval data. The upstream candidate-pool generation stages and the original TC-Backbone training manifest are not included, so the complete data-construction pipeline cannot be reproduced from raw corpora using this repository alone.
 
 ## Tests
 
