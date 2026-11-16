@@ -1,20 +1,14 @@
 # HeTong Model Family
 
-### 和同开源大模型系列
-
-**和而不同，智联万语。**
-
 *Harmony in Diversity, Intelligence Across Languages.*
 
 ---
 
-## Introduction | 项目简介
+## Introduction
 
-**HeTong（和同）** is an open research initiative dedicated to multilingual and multimodal foundation models, low-resource language technologies, cross-cultural understanding, and trustworthy artificial intelligence.
+**HeTong** is an open research initiative dedicated to multilingual and multimodal foundation models, low-resource language technologies, cross-cultural understanding, and trustworthy artificial intelligence.
 
-和同（HeTong）取意于“和而不同、美美与共”，旨在构建面向低资源多语种、多模态理解、文化价值观对齐与可信人工智能的开放基础模型家族。
-
-## Model Family | 模型家族
+## Model Family
 
 | Model Series | Description | Status |
 |---|---|---|
@@ -30,13 +24,11 @@
 
 Model weights, inference code, technical reports, and model cards will be released progressively as they become available.
 
-## Evaluation Ecosystem | 评测生态
+## Evaluation Ecosystem
 
 ### HeTongEval
 
 **HeTongEval: An Open Evaluation and Monitoring Platform for Multilingual and Multimodal Foundation Models**
-
-**HeTongEval：面向低资源多语种与多模态基础模型的开放评测与动态监测平台**
 
 The following repository entry points are available; evaluation implementations, benchmark data, and rankings remain under development:
 
@@ -45,7 +37,7 @@ The following repository entry points are available; evaluation implementations,
 - **[HeTongRank](https://github.com/MUC-HeTong/HeTongRank)** — Foundation Model Leaderboards
 - **HeTongReport** — Planned Evaluation and Diagnostic Reports
 
-## Research Directions | 研究方向
+## Research Directions
 
 - Multilingual Foundation Models
 - Low-Resource Language Technologies
@@ -54,11 +46,11 @@ The following repository entry points are available; evaluation implementations,
 - Cross-Cultural Understanding and Alignment
 - Trustworthy and Responsible Artificial Intelligence
 
-## Publications | 学术成果
+## Publications
 
 Publications and technical reports will be listed here upon release.
 
-## Roadmap | 项目规划
+## Roadmap
 
 - [x] Establish the HeTong open-source identity
 - [ ] Release the first model implementation
@@ -67,12 +59,10 @@ Publications and technical reports will be listed here upon release.
 - [ ] Launch the HeTongRank leaderboard
 - [ ] Publish reproducible evaluation reports
 
-## Contact | 联系我们
+## Contact
 
 Official project contact information will be added here.
 
 ---
 
 **HeTong Model Family**
-
-*和而不同，智联万语。*
