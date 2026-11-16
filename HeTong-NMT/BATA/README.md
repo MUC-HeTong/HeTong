@@ -22,28 +22,48 @@ Two independent LoRA adapters are trained: BO→ZH and ZH→BO. At inference, so
 
 ## Visual overview
 
-The three figures below are the original figures referenced by the final paper source (`10_27.tex`). They were converted directly from the paper's PDF artwork to SVG for inline GitHub rendering.
-
-### Figure 1. Terminology resource and adaptation-data construction
+The three figures below are the figures used in the final paper. They are the original paper artwork converted from PDF to SVG, not redrawn illustrations.
 
 <p align="center">
-  <img src="assets/figure1_data_construction.svg" alt="Terminology resource and adaptation-data construction" width="100%" />
+  <img src="assets/figure1_data_construction.svg" alt="Terminology resource and adaptation-data construction" width="92%" />
+  <br />
+  <sub><strong>Figure 1.</strong> Terminology resource construction, terminology-conditioned sentence construction, and behavior-aware adaptation-data construction.</sub>
 </p>
-<p align="center"><sub>Resource collection and normalization, terminology-conditioned sentence construction, and behavior-aware adaptation-data construction.</sub></p>
-
-### Figure 2. Domain distribution of the terminology resource
 
 <p align="center">
-  <img src="assets/figure2_domain_distribution.svg" alt="Two-level domain distribution of the Tibetan–Chinese terminology resource" width="76%" />
+  <img src="assets/figure2_domain_distribution.svg" alt="Two-level domain distribution of the Tibetan–Chinese terminology resource" width="52%" />
+  <br />
+  <sub><strong>Figure 2.</strong> Two-level domain distribution: the inner ring shows the nine first-level domains and the outer ring shows the 21 second-level categories.</sub>
 </p>
-<p align="center"><sub>The inner ring represents the nine first-level domains; the outer ring represents the 21 second-level categories.</sub></p>
-
-### Figure 3. Overview of BATA
 
 <p align="center">
-  <img src="assets/figure3_bata_framework.svg" alt="BATA framework for Tibetan–Chinese translation" width="100%" />
+  <img src="assets/figure3_bata_framework.svg" alt="BATA framework for Tibetan–Chinese translation" width="92%" />
+  <br />
+  <sub><strong>Figure 3.</strong> Overview of BATA, combining direction-aware terminology retrieval, the TC-Backbone, and behavior-aware direction-specific LoRA adaptation.</sub>
 </p>
-<p align="center"><sub>Direction-aware terminology retrieval, TC-Backbone adaptation, and behavior-aware direction-specific LoRA training.</sub></p>
+
+### Supplementary experimental visualizations
+
+These two plots provide visual summaries of results reported in the paper. They are supplementary views; the numerical tables below are the authoritative record.
+
+<table>
+  <tr>
+    <td align="center" width="66%">
+      <img src="assets/oracle_adaptation_results.webp" alt="Oracle terminology utilization results for BO to ZH and ZH to BO" width="100%" />
+    </td>
+    <td align="center" width="34%">
+      <img src="assets/retrieval_effect_radar.webp" alt="Radar chart comparing BATA with and without terminology retrieval" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <sub><strong>Supplementary Figure A.</strong> Oracle terminology utilization under Final2000.</sub>
+    </td>
+    <td align="center" valign="top">
+      <sub><strong>Supplementary Figure B.</strong> Retrieval-assisted terminology utilization and translation quality (normalized axes).</sub>
+    </td>
+  </tr>
+</table>
 
 ### Terminology resource summary
 
@@ -58,14 +78,9 @@ The three figures below are the original figures referenced by the final paper s
 
 ## Experimental results
 
-The paper archive also contains two supplementary result visualizations that are not referenced in the final `10_27.tex` figure list. They are included here as additional views of the reported evaluation. The numerical tables below are transcribed from the final manuscript and should be treated as the authoritative values.
+The supplementary plots in the visual gallery summarize the oracle-terminology and retrieval-assisted results. The numerical tables below are transcribed from the final `10_27.tex` manuscript and should be treated as the authoritative values.
 
 ### Oracle terminology utilization
-
-<p align="center">
-  <img src="assets/oracle_adaptation_results.webp" alt="Oracle terminology utilization results for BO to ZH and ZH to BO" width="96%" />
-</p>
-<p align="center"><sub>Supplementary visualization of the Final2000 oracle-terminology comparison. The chart label “checkpoint200k” refers to TC-Backbone.</sub></p>
 
 | Direction | Method | Strict TermAcc | Canonical TermAcc | BLEU | chrF++ | ROUGE-L |
 |---|---|---:|---:|---:|---:|---:|
@@ -77,11 +92,6 @@ The paper archive also contains two supplementary result visualizations that are
 | ZH→BO | BATA | **83.30** | **97.35** | **35.16** | **53.11** | **63.63** |
 
 ### Retrieval-assisted translation
-
-<p align="center">
-  <img src="assets/retrieval_effect_radar.webp" alt="Radar chart comparing BATA with and without terminology retrieval" width="62%" />
-</p>
-<p align="center"><sub>Supplementary radar visualization of terminology utilization and sentence-level translation quality with and without retrieved terminology. The radial axes use a normalized 0–1 scale; exact direction-specific scores are listed below.</sub></p>
 
 **Terminology retrieval performance**
 
@@ -123,6 +133,165 @@ The table reports changes in general-translation metrics when retrieval-routed B
 | MiLiC-Eval | ZH→BO | 96.78% | -3.05 | -2.37 | -2.08 |
 | mitra-parallel | ZH→BO | 67.35% | -0.57 | -0.99 | -1.01 |
 | Ti-ChTrans | BO→ZH | 98.20% | -2.85 | -2.47 | -2.85 |
+
+## Additional tables from the final manuscript
+
+The following collapsible sections provide the detailed tables from the final manuscript that are useful for understanding the data resources, backbone adaptation, ablations, and evaluation controls without making the main README excessively long.
+
+<details>
+<summary><strong>Terminology sources and two-level domain taxonomy</strong></summary>
+
+**Source composition before normalization and cross-source consolidation**
+
+| Source | Type | Raw records |
+|---|---|---:|
+| Modern Tibetan Comparative Dictionary | Existing | 30,387 |
+| CCMT2018-derived terminology | Existing | 15,461 |
+| Historical project terminology | Self-collected | 579 |
+| 2024 Tibetan New Terms | Self-collected | 52 |
+| Classification and Codes of Tibetan Medical Diseases | Self-collected | 3,066 |
+| Tibetan New Terms since the 19th CPC National Congress | Self-collected | 1,797 |
+| 23rd National Tibetan-language Media Cooperation Conference | Self-collected | 234 |
+| Chinese–Tibetan Reference Dictionary of Tourist Attractions | Self-collected | 260 |
+| Tibetan Vocabulary for Information Technology | Self-collected | 2,007 |
+| **Existing subtotal** |  | **45,848** |
+| **Self-collected subtotal** |  | **7,995** |
+| **Total raw records** |  | **53,843** |
+
+**Two-level domain taxonomy**
+
+| First-level domain | Second-level category | Pairs |
+|---|---|---:|
+| Politics, Law and Public Security | Political and Public Administration | 1,525 |
+|  | Law and Justice | 1,041 |
+|  | Military and Security | 967 |
+| Economy, Finance and Commerce | Finance and Economics | 1,333 |
+|  | Commerce, Services and Consumption | 1,180 |
+| Engineering, Construction and Transportation | Engineering Technology and Power | 1,709 |
+|  | Architecture and Real Estate | 592 |
+|  | Transportation and Aviation | 819 |
+| Agriculture, Food and Environment | Agriculture, Forestry, Animal Husbandry and Fisheries | 1,442 |
+|  | Food and Catering | 1,077 |
+|  | Environment and Energy | 818 |
+| Education, Culture, Religion and Media | Education and Training | 1,309 |
+|  | Culture, Arts, Media and Publishing | 2,417 |
+|  | Religion and Philosophy | 650 |
+| Information Technology and Internet | Information Technology and Internet | 2,536 |
+| Healthcare and Life Sciences | Healthcare | 5,477 |
+| Sports, Tourism and Leisure Geography | Sports | 629 |
+|  | Tourism Geography and Place Names | 1,230 |
+| Social Life and Named Entities | Social Life and General Concepts | 12,993 |
+|  | Everyday and General Expressions | 4,252 |
+|  | Person, Place and Other Proper Names | 978 |
+| **Resolved total** | **9 first-level / 21 second-level categories** | **44,974** |
+
+</details>
+
+<details>
+<summary><strong>TC-Backbone quality comparison</strong></summary>
+
+Translation quality of Hy-MT2-7B and the task-adapted TC-Backbone. Values are BLEU / chrF++ / ROUGE-L.
+
+| Dataset | Direction | Hy-MT2-7B | TC-Backbone |
+|---|---|---:|---:|
+| FLORES-200 | BO→ZH | 11.08 / 15.88 / 38.01 | **11.24 / 15.98 / 38.01** |
+| FLORES-200 | ZH→BO | 7.61 / 33.03 / 27.58 | **8.64** / 32.35 / **29.06** |
+| FLORES-200 | BO→EN | 11.81 / 40.32 / 35.26 | 11.21 / 37.35 / 32.59 |
+| FLORES-200 | EN→BO | 8.24 / 32.31 / 29.46 | **9.04** / 31.94 / **30.69** |
+| MiLiC-Eval | BO→ZH | 19.58 / 23.19 / 48.06 | **22.05 / 25.23 / 50.17** |
+| MiLiC-Eval | ZH→BO | 19.60 / 40.76 / 42.72 | **26.87 / 44.13 / 48.08** |
+| mitra-parallel | ZH→BO | 3.90 / 21.02 / 16.08 | **11.62 / 30.13 / 31.10** |
+| mitra-parallel | BO→EN | 6.33 / 25.90 / 20.33 | 5.99 / 21.59 / 19.63 |
+| mitra-parallel | BO→LZH | 4.11 / 5.15 / 15.80 | **5.18 / 6.61 / 16.95** |
+| mitra-parallel | EN→BO | 4.48 / 23.90 / 19.23 | **9.03 / 28.71 / 27.53** |
+| mitra-parallel | LZH→BO | 3.85 / 21.37 / 16.08 | **14.99 / 34.29 / 36.10** |
+| Ti-ChTrans | BO→ZH | 27.24 / 30.34 / 57.05 | **31.48 / 33.80 / 59.45** |
+| ZangHan_General | BO→ZH | 19.73 / 22.24 / 45.85 | **27.35 / 30.23 / 53.26** |
+| ZangHan_General | ZH→BO | 20.14 / 40.38 / 45.43 | **28.26 / 45.93 / 54.02** |
+| YingZang | BO→EN | 19.99 / 44.16 / 41.37 | **30.89 / 53.24 / 51.85** |
+| YingZang | EN→BO | 16.17 / 37.01 / 40.64 | **27.65 / 45.55 / 53.07** |
+| GuHanZang | BO→LZH | 2.14 / 5.20 / 15.67 | **12.49 / 18.14 / 37.06** |
+| GuHanZang | LZH→BO | 2.93 / 26.00 / 18.98 | **24.48 / 42.54 / 48.86** |
+
+</details>
+
+<details>
+<summary><strong>Direction-specific LoRA and behavior-data ablations</strong></summary>
+
+**Direction-specific versus shared LoRA under oracle terminology**
+
+| Direction | Adapter | Strict TermAcc | Canonical TermAcc | Sentence BLEU | Corpus BLEU |
+|---|---|---:|---:|---:|---:|
+| BO→ZH | BATA (directional, r=8) | 91.25 | 91.25 | 20.74 | 34.52 |
+| BO→ZH | Joint (r=8) | 83.40 | 87.20 | 18.62 | — |
+| BO→ZH | Joint (r=16) | 95.30 | 95.30 | 23.09 | 36.78 |
+| ZH→BO | BATA (directional, r=8) | 83.30 | 97.35 | 35.16 | 37.48 |
+| ZH→BO | Joint (r=8) | 66.35 | 91.20 | 30.21 | — |
+| ZH→BO | Joint (r=16) | 37.25 | 94.85 | 34.08 | 34.17 |
+
+**Behavior-aware training-data composition**
+
+| Direction | Training data | Strict TermAcc | Canonical TermAcc | BLEU | chrF++ | ROUGE-L |
+|---|---|---:|---:|---:|---:|---:|
+| BO→ZH | Correction-only | 87.40 | 87.40 | 18.82 | 23.05 | 49.28 |
+| BO→ZH | Correction + Preservation | 88.40 | 88.40 | 19.97 | 24.03 | 51.48 |
+| BO→ZH | Full behavior-aware | **91.25** | **91.25** | **20.74** | **24.73** | **52.53** |
+| ZH→BO | Correction-only | 52.50 | 96.60 | 33.43 | 52.41 | 62.57 |
+| ZH→BO | Correction + Preservation | 67.75 | 97.15 | 34.07 | 52.54 | 62.80 |
+| ZH→BO | Full behavior-aware | **83.30** | **97.35** | **35.16** | **53.11** | **63.63** |
+
+**Training-budget comparison including the all-data LoRA control**
+
+| Direction | Adapter | Train examples | Updates | Strict / Canonical TermAcc | Sentence BLEU | Corpus BLEU | chrF++ / ROUGE-L |
+|---|---|---:|---:|---:|---:|---:|---:|
+| BO→ZH | Random LoRA | 656 | 82 | 86.75 / 86.75 | 19.51 | 32.77 | 23.57 / 50.66 |
+| BO→ZH | BATA | 656 | 82 | **91.25 / 91.25** | **20.74** | **34.52** | **24.73 / 52.53** |
+| BO→ZH | All-Data LoRA | 23,067 | 2,884 | 95.00 / 95.00 | 25.84 | 38.47 | 28.56 / 58.22 |
+| ZH→BO | Random LoRA | 1,481 | 186 | 34.35 / 94.80 | 33.90 | 33.61 | 52.60 / 62.80 |
+| ZH→BO | BATA | 1,481 | 186 | **83.30 / 97.35** | **35.16** | **37.48** | **53.11 / 63.63** |
+| ZH→BO | All-Data LoRA | 23,067 | 2,884 | 80.75 / 97.20 | 39.17 | 43.09 | 54.82 / 67.44 |
+
+</details>
+
+<details>
+<summary><strong>Bootstrap intervals, few-shot controls, and E5 routing</strong></summary>
+
+**Paired bootstrap intervals**
+
+The intervals below use 5,000 resamples of matched test records. They characterize test-sample uncertainty within a single training run per system.
+
+| Direction | Comparison (BATA minus) | Strict TermAcc Δ (pp), 95% CI | Sentence BLEU Δ, 95% CI |
+|---|---|---:|---:|
+| BO→ZH | Random LoRA | +4.50 [3.50, 5.50] | +1.236 [0.899, 1.584] |
+| BO→ZH | All-Data LoRA | −3.75 [−4.95, −2.55] | −5.096 [−5.907, −4.251] |
+| BO→ZH | Capacity-matched Joint | −4.05 [−5.00, −3.10] | −2.349 [−2.832, −1.855] |
+| ZH→BO | Random LoRA | +48.95 [46.80, 51.15] | +1.265 [0.816, 1.715] |
+| ZH→BO | All-Data LoRA | +2.55 [0.80, 4.30] | −4.007 [−4.776, −3.232] |
+| ZH→BO | Capacity-matched Joint | +46.05 [43.85, 48.15] | +1.088 [0.657, 1.562] |
+
+**Non-adaptation baselines with oracle terminology**
+
+| Direction | Method | Strict / Canonical TermAcc | Sentence BLEU | Corpus BLEU | chrF++ | ROUGE-L |
+|---|---|---:|---:|---:|---:|---:|
+| BO→ZH | 1-shot prompting | 89.85 / 89.85 | 15.17 | 18.15 | 19.87 | 41.06 |
+| BO→ZH | 3-shot prompting | 86.60 / 86.60 | 19.05 | 27.79 | 23.06 | 50.06 |
+| BO→ZH | Lexical-regex decoding | 90.20 / 90.20 | 13.93 | 2.12 | 18.99 | 37.96 |
+| ZH→BO | 1-shot prompting | 42.85 / 87.60 | 21.98 | 22.52 | 41.67 | 46.23 |
+| ZH→BO | 3-shot prompting | 42.10 / 91.55 | 24.30 | 23.97 | 44.01 | 49.97 |
+| ZH→BO | Lexical-regex decoding | 41.25 / 60.50 | 8.26 | 1.74 | 21.95 | 19.71 |
+
+**Backbone-aware E5 routing on general translation benchmarks**
+
+| Benchmark | Direction | n | Original activation | E5 activation | Backbone sentence BLEU | E5 sentence BLEU |
+|---|---|---:|---:|---:|---:|---:|
+| FLORES-200 | BO→ZH | 2,009 | 100.00% | 74.76% | 11.24 | 10.95 |
+| FLORES-200 | ZH→BO | 2,009 | 99.95% | 64.16% | 8.64 | 8.55 |
+| MiLiC-Eval | BO→ZH | 1,585 | 99.24% | 76.47% | 22.05 | 21.14 |
+| MiLiC-Eval | ZH→BO | 1,585 | 96.78% | 62.59% | 26.87 | 24.14 |
+| mitra-parallel | LZH→BO | 2,499 | — | 49.02% | 11.62 | 11.28 |
+| Ti-ChTrans | BO→ZH | 1,000 | 98.20% | 71.50% | 31.48 | 29.02 |
+
+</details>
 
 ## Project structure
 
