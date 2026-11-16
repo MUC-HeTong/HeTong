@@ -20,26 +20,37 @@ The retained v5 builder reads precomputed candidate pools and emits `preservatio
 
 Two independent LoRA adapters are trained: BO→ZH and ZH→BO. At inference, source-only retrieval uses the matching direction’s terminology index. The released final policy is deterministic **top-1**, not top-3: among exact source-side matches, the ranking implementation resolves overlaps and blocks ambiguous or bidirectional-conflict candidates. A retrieved term is added to the prompt and activates that direction’s adapter; a non-hit uses the TC-Backbone without a terminology adapter. This is prompt-conditioned adapter routing, not constrained decoding.
 
-```mermaid
-flowchart LR
-  A[Validated candidate pools] --> B[Behavior v5 data builder]
-  B --> C[BO→ZH train/dev]
-  B --> D[ZH→BO train/dev]
-  C --> E[BO→ZH LoRA]
-  D --> F[ZH→BO LoRA]
-  G[Bilingual terminology KB] --> H[Direction-aware exact retrieval]
-  I[Source sentence + direction] --> H
-  H -->|top-1 HIT| J[Term-conditioned prompt + matching LoRA]
-  H -->|no hit / ambiguous / blocked| K[Backbone-only fallback]
-  J --> L[Translation]
-  K --> L
-```
+![BATA framework: terminology retrieval, TC-Backbone adaptation, and direction-specific LoRA](assets/figure3_bata_framework.svg)
+
+*Figure 3. Overview of BATA for Tibetan–Chinese translation, redrawn from the paper for this repository.*
+
+The figure is a conceptual overview. The released implementation uses the deterministic top-1 retrieval policy described above; the diagram does not prescribe a candidate count.
+
+## Data construction figures
+
+The following diagrams summarize the resource and dataset construction described in the paper. They are redrawn from the paper figures for clearer display in this repository.
+
+### Terminology resource and adaptation-data construction
+
+![BATA terminology resource and adaptation-data construction](assets/figure1_data_construction.svg)
+
+*Figure 1. Terminology-resource construction, terminology-conditioned sentence generation, and behavior-aware adaptation-data construction. The paper reports 53,843 raw terminology records, 45,432 normalized bilingual pairs, 30,366 terminology-conditioned sentence instances, and 2,677 BATA train/development instances.*
+
+### Domain distribution
+
+![Distribution of the Tibetan–Chinese terminology resource across nine first-level domains](assets/figure2_domain_distribution.svg)
+
+*Figure 2. First-level domain distribution among the 44,974 terminology pairs with resolved domain labels. The taxonomy contains nine first-level domains and 21 second-level categories.*
 
 ## Project structure
 
 ```text
 BATA/
 ├── README.md
+├── assets/
+│   ├── figure1_data_construction.svg
+│   ├── figure2_domain_distribution.svg
+│   └── figure3_bata_framework.svg
 ├── requirements.txt
 ├── .gitignore
 ├── configs/
@@ -168,4 +179,4 @@ PYTHONPATH=terminology_v2/rag_integration_v1/src:terminology_v2/rag_integration_
 
 ## Citation
 
-The checked manuscript is titled *BATA: Behavior-Aware Terminology Adaptation for Low-Resource Tibetan--Chinese Machine Translation* and currently lists `Anonymous Author(s)`. No publication venue, year, DOI, or public preprint identifier is present in the supplied manuscript, so none is asserted here. Please replace this placeholder citation with the camera-ready bibliographic record when available.
+Zeshuo Liu, Jiu Sha, Yunhao Tian, Yu Weng, Zheng Liu, and Kailiang Wen. *BATA: Behavior-Aware Terminology Adaptation for Low-Resource Tibetan–Chinese Machine Translation.* Liu and Sha contributed equally; Yu Weng is the corresponding author.
