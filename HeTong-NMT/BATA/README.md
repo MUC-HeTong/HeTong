@@ -2,6 +2,8 @@
 
 **BATA** is a framework for improving specialized terminology translation in low-resource Tibetan–Chinese machine translation. It uses a translation model's observed behavior on terminology examples to guide lightweight model adaptation, and retrieves bilingual terms at inference time.
 
+Download the Tibetan–Chinese and Chinese–Tibetan LoRA adapters from the [BATA model repository on Hugging Face](https://huggingface.co/MUC-HeTong/BATA).
+
 ## How BATA works
 
 BATA is built on **TC-Backbone**, a Tibetan–Chinese translation model adapted from Hy-MT2-7B using approximately 570K parallel sentence pairs. Rather than training on all terminology examples uniformly, BATA groups examples according to whether the backbone can produce the target term:
