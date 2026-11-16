@@ -44,7 +44,7 @@ The three figures below are the figures used in the final paper. They are the or
 
 ### Supplementary experimental visualizations
 
-These two plots provide visual summaries of results reported in the paper. They are supplementary views; the numerical tables below are the authoritative record.
+These two plots were included in the earlier manuscript draft (`9.23.tex`) and are retained as supplementary visualizations. The final manuscript (`10_27.tex`) reports these experiments in numerical tables; those tables are the authoritative record.
 
 <table>
   <tr>
@@ -57,10 +57,10 @@ These two plots provide visual summaries of results reported in the paper. They 
   </tr>
   <tr>
     <td align="center" valign="top">
-      <sub><strong>Supplementary Figure A.</strong> Oracle terminology utilization under Final2000.</sub>
+      <sub><strong>Supplementary visualization A.</strong> Oracle terminology utilization under Final2000; the chart legend “checkpoint200k” denotes TC-Backbone.</sub>
     </td>
     <td align="center" valign="top">
-      <sub><strong>Supplementary Figure B.</strong> Retrieval-assisted terminology utilization and translation quality (normalized axes).</sub>
+      <sub><strong>Supplementary visualization B.</strong> Retrieval-assisted terminology utilization and translation quality (radial axes normalized to 0–1).</sub>
     </td>
   </tr>
 </table>
