@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="850" viewBox="0 0 1440 850" role="img" aria-labelledby="t d">
+<title id="t">BATA terminology resource and adaptation-data construction</title>
+<desc id="d">Three stages: terminology resource construction, terminology-conditioned translation data construction, and behavior-aware adaptation data construction.</desc>
+<defs>
+  <marker id="a1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+  <style>
+    .h{font:700 25px Arial,sans-serif}.sh{font:700 19px Arial,sans-serif}.tx{font:16px Arial,sans-serif}.sm{font:14px Arial,sans-serif}.num{font:700 22px Arial,sans-serif}.metric{font:700 31px Arial,sans-serif}
+  </style>
+</defs>
+<rect width="1440" height="850" fill="#ffffff"/>
+<text x="34" y="42" class="h" fill="#172554">BATA DATA AND ADAPTATION-SET CONSTRUCTION</text>
+<rect x="25" y="70" width="355" height="750" rx="18" fill="#eff7ff" stroke="#8ec5f4" stroke-width="2"/>
+<rect x="25" y="70" width="355" height="55" rx="18" fill="#cfe8ff"/>
+<text x="48" y="106" class="h" fill="#15518a">Stage I · Terminology Resource</text>
+<rect x="43" y="143" width="319" height="94" rx="13" fill="#ffffff" stroke="#9bcdf4"/>
+<circle cx="70" cy="174" r="18" fill="#1767a5"/><text x="70" y="182" text-anchor="middle" class="num" fill="#ffffff">1</text>
+<text x="100" y="169" class="sh" fill="#164e80">Resource collection</text>
+<text x="100" y="197" class="tx" fill="#334155">45,848 existing records</text>
+<text x="100" y="220" class="sm" fill="#475569">7,995 newly collected · 53,843 raw total</text><rect x="43" y="251" width="319" height="94" rx="13" fill="#ffffff" stroke="#9bcdf4"/>
+<circle cx="70" cy="282" r="18" fill="#1767a5"/><text x="70" y="290" text-anchor="middle" class="num" fill="#ffffff">2</text>
+<text x="100" y="277" class="sh" fill="#164e80">Text extraction &amp; OCR</text>
+<text x="100" y="305" class="tx" fill="#334155">OCR and layout parsing</text>
+<text x="100" y="328" class="sm" fill="#475569">Tibetan text extraction · source normalization</text><rect x="43" y="359" width="319" height="94" rx="13" fill="#ffffff" stroke="#9bcdf4"/>
+<circle cx="70" cy="390" r="18" fill="#1767a5"/><text x="70" y="398" text-anchor="middle" class="num" fill="#ffffff">3</text>
+<text x="100" y="385" class="sh" fill="#164e80">Terminology structuring</text>
+<text x="100" y="413" class="tx" fill="#334155">Bilingual record creation</text>
+<text x="100" y="436" class="sm" fill="#475569">Pair deduplication · variant normalization</text><rect x="43" y="467" width="319" height="94" rx="13" fill="#ffffff" stroke="#9bcdf4"/>
+<circle cx="70" cy="498" r="18" fill="#1767a5"/><text x="70" y="506" text-anchor="middle" class="num" fill="#ffffff">4</text>
+<text x="100" y="493" class="sh" fill="#164e80">Quality control &amp; auditing</text>
+<text x="100" y="521" class="tx" fill="#334155">Provenance preservation</text>
+<text x="100" y="544" class="sm" fill="#475569">Structural validation · manual review</text><rect x="43" y="575" width="319" height="94" rx="13" fill="#ffffff" stroke="#9bcdf4"/>
+<circle cx="70" cy="606" r="18" fill="#1767a5"/><text x="70" y="614" text-anchor="middle" class="num" fill="#ffffff">5</text>
+<text x="100" y="601" class="sh" fill="#164e80">Domain classification</text>
+<text x="100" y="629" class="tx" fill="#334155">9 first-level / 21 second-level</text>
+<text x="100" y="652" class="sm" fill="#475569">44,974 pairs receive domain labels</text><rect x="43" y="683" width="319" height="94" rx="13" fill="#ffffff" stroke="#9bcdf4"/>
+<circle cx="70" cy="714" r="18" fill="#1767a5"/><text x="70" y="722" text-anchor="middle" class="num" fill="#ffffff">6</text>
+<text x="100" y="709" class="sh" fill="#164e80">Integration &amp; export</text>
+<text x="100" y="737" class="tx" fill="#334155">Integrate validated pairs</text>
+<text x="100" y="760" class="sm" fill="#475569">Attach metadata · export terminology resource</text>
+<path d="M380 430 H405" stroke="#64748b" stroke-width="4" marker-end="url(#a1)"/>
+<rect x="410" y="70" width="220" height="750" rx="18" fill="#f1f7ff" stroke="#93bde8" stroke-width="2"/>
+<text x="520" y="125" text-anchor="middle" class="sh" fill="#174a7e">Terminology</text>
+<text x="520" y="151" text-anchor="middle" class="sh" fill="#174a7e">Knowledge Base</text>
+<path d="M455 178 H585" stroke="#b7d2ef" stroke-width="2"/>
+<text x="520" y="242" text-anchor="middle" class="metric" fill="#174a7e">45,432</text>
+<text x="520" y="270" text-anchor="middle" class="tx" fill="#334155">normalized bilingual pairs</text>
+<rect x="435" y="305" width="170" height="2" fill="#b7d2ef"/>
+<text x="520" y="355" text-anchor="middle" class="sh" fill="#174a7e">44,974 labeled</text>
+<text x="520" y="382" text-anchor="middle" class="tx" fill="#334155">98.99% coverage</text>
+<text x="520" y="450" text-anchor="middle" class="sh" fill="#174a7e">9 / 21 domains</text>
+<text x="520" y="478" text-anchor="middle" class="tx" fill="#334155">first / second level</text>
+<path d="M435 520 H605" stroke="#b7d2ef" stroke-width="2"/>
+<text x="520" y="570" text-anchor="middle" class="sh" fill="#174a7e">Provenance</text>
+<text x="520" y="596" text-anchor="middle" class="tx" fill="#334155">surface variants</text>
+<text x="520" y="621" text-anchor="middle" class="tx" fill="#334155">mapping metadata</text>
+<text x="520" y="646" text-anchor="middle" class="tx" fill="#334155">domain labels</text>
+<path d="M630 285 H652" stroke="#64748b" stroke-width="4" marker-end="url(#a1)"/>
+<path d="M630 620 H652" stroke="#64748b" stroke-width="4" marker-end="url(#a1)"/>
+<rect x="660" y="70" width="755" height="280" rx="18" fill="#f0fbf2" stroke="#8bc99b" stroke-width="2"/>
+<rect x="660" y="70" width="755" height="55" rx="18" fill="#d6f2dc"/>
+<text x="685" y="106" class="h" fill="#176534">Stage II · Terminology-conditioned Translation Data</text>
+<rect x="690" y="155" width="470" height="155" rx="14" fill="#ffffff" stroke="#a8d9b3"/>
+<text x="715" y="190" class="sh" fill="#176534">Sentence-level instance construction</text>
+<text x="715" y="226" class="tx" fill="#334155">1. Select a trusted bilingual terminology pair</text>
+<text x="715" y="257" class="tx" fill="#334155">2. Build a Tibetan context containing the source term</text>
+<text x="715" y="288" class="tx" fill="#334155">3. Generate and retain the aligned translation</text>
+<rect x="1180" y="150" width="205" height="165" rx="14" fill="#fffdf0" stroke="#e5d18a"/>
+<text x="1282" y="184" text-anchor="middle" class="sh" fill="#875b00">Generated data</text>
+<text x="1282" y="232" text-anchor="middle" class="metric" fill="#875b00">30,366</text>
+<text x="1282" y="258" text-anchor="middle" class="sm" fill="#475569">sentence instances</text>
+<text x="1282" y="291" text-anchor="middle" class="sh" fill="#875b00">24,939</text>
+<text x="1282" y="311" text-anchor="middle" class="sm" fill="#475569">unique term pairs</text>
+<rect x="660" y="375" width="755" height="445" rx="18" fill="#fff5f5" stroke="#e7a0a0" stroke-width="2"/>
+<rect x="660" y="375" width="755" height="55" rx="18" fill="#ffe0e0"/>
+<text x="685" y="411" class="h" fill="#a32626">Stage III · Behavior-aware Adaptation Data</text>
+<rect x="690" y="455" width="690" height="72" rx="12" fill="#ffffff" stroke="#e5b5b5"/>
+<text x="1035" y="483" text-anchor="middle" class="sh" fill="#7f1d1d">Backbone behavior assessment</text>
+<text x="1035" y="508" text-anchor="middle" class="tx" fill="#475569">Compare target-term realization with and without terminology conditioning</text>
+<path d="M1035 527 V548" stroke="#b45353" stroke-width="3" marker-end="url(#a1)"/>
+<rect x="690" y="555" width="205" height="125" rx="14" fill="#e7f7eb" stroke="#79bf8c"/>
+<text x="792" y="587" text-anchor="middle" class="sh" fill="#176534">Stable Success</text>
+<text x="792" y="619" text-anchor="middle" class="tx" fill="#334155">Term realized</text>
+<text x="792" y="644" text-anchor="middle" class="tx" fill="#334155">without prompting</text>
+<rect x="920" y="555" width="205" height="125" rx="14" fill="#fff6df" stroke="#e5bf68"/>
+<text x="1022" y="587" text-anchor="middle" class="sh" fill="#946200">Recoverable Failure</text>
+<text x="1022" y="619" text-anchor="middle" class="tx" fill="#334155">Correct after</text>
+<text x="1022" y="644" text-anchor="middle" class="tx" fill="#334155">term conditioning</text>
+<rect x="1150" y="555" width="205" height="125" rx="14" fill="#ffe9e9" stroke="#df9696"/>
+<text x="1252" y="587" text-anchor="middle" class="sh" fill="#a32626">Residual Failure</text>
+<text x="1252" y="619" text-anchor="middle" class="tx" fill="#334155">Still incorrect</text>
+<text x="1252" y="644" text-anchor="middle" class="tx" fill="#334155">after conditioning</text>
+<rect x="690" y="705" width="690" height="90" rx="14" fill="#ffffff" stroke="#e5b5b5"/>
+<text x="720" y="741" class="sh" fill="#7f1d1d">BATA dataset</text>
+<text x="720" y="772" class="tx" fill="#334155">2,137 train  ·  540 development</text>
+<text x="1015" y="741" class="tx" fill="#334155">Train: BO→ZH 656  |  ZH→BO 1,481</text>
+<text x="1015" y="772" class="tx" fill="#334155">Dev: BO→ZH 168  |  ZH→BO 372</text>
+</svg>
