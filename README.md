@@ -16,7 +16,7 @@
 | **HeTong-VL** | Vision-Language Models | Planned |
 | **HeTong-Omni** | Omnimodal Foundation Models | Planned |
 | **HeTong-ASR** | Multilingual Speech Recognition | Planned |
-| **HeTong-NMT** | Neural Machine Translation | Planned |
+| **HeTong-NMT** | Neural Machine Translation | [HeTong-NMT-7B on Hugging Face](https://huggingface.co/MUC-HeTong/HeTong-NMT-7B) |
 | **HeTong-TTS** | Multilingual Text-to-Speech | Planned |
 | **HeTong-Guard** | Foundation Model Safety | Planned |
 | **HeTong-Agent** | Agent Foundation Models | Planned |
