@@ -22,13 +22,13 @@ Two independent LoRA adapters are trained: BO→ZH and ZH→BO. At inference, so
 
 ![BATA framework: terminology retrieval, TC-Backbone adaptation, and direction-specific LoRA](assets/figure3_bata_framework.svg)
 
-*Figure 3. Overview of BATA for Tibetan–Chinese translation, redrawn from the paper for this repository.*
+*Figure 3. Overview of BATA for Tibetan–Chinese translation. Original paper artwork, converted from the source PDF to SVG for inline rendering.*
 
-The figure is a conceptual overview. The released implementation uses the deterministic top-1 retrieval policy described above; the diagram does not prescribe a candidate count.
+The figure is the paper's original framework artwork, converted from the source PDF to SVG for inline rendering. The released implementation uses the deterministic top-1 retrieval policy described above; the diagram does not prescribe a candidate count.
 
 ## Data construction figures
 
-The following diagrams summarize the resource and dataset construction described in the paper. They are redrawn from the paper figures for clearer display in this repository.
+The following figures are vector SVG exports of the original PDF figures referenced by `10_27.tex`. Their original figure content, labels, colors, and layout are retained; only the file format was converted for inline rendering on GitHub. The source PDFs are `figures/t2.pdf`, `figures/Task_Distribution_Ring_Chart_v2.pdf`, and `figures/t3.pdf` in the paper archive.
 
 ### Terminology resource and adaptation-data construction
 
@@ -40,7 +40,7 @@ The following diagrams summarize the resource and dataset construction described
 
 ![Distribution of the Tibetan–Chinese terminology resource across nine first-level domains](assets/figure2_domain_distribution.svg)
 
-*Figure 2. First-level domain distribution among the 44,974 terminology pairs with resolved domain labels. The taxonomy contains nine first-level domains and 21 second-level categories.*
+*Figure 2. Domain distribution of the Tibetan–Chinese terminology resource. The inner ring represents the nine first-level domains, and the outer ring represents the second-level categories with their percentages.*
 
 ## Project structure
 
