@@ -1,6 +1,6 @@
 # BATA: Behavior-Aware Terminology Adaptation
 
-Code for terminology-aware, low-resource Tibetan–Chinese machine translation. This release preserves the implementation associated with the project’s final paper-mainline assets; it does not include model checkpoints, adapters, corpora, terminology databases, or evaluation examples.
+Code for terminology-aware, low-resource Tibetan–Chinese machine translation. This release preserves the implementation associated with the final paper-mainline experiments; it does not include model checkpoints, adapters, corpora, terminology databases, or evaluation examples.
 
 ## Project overview
 
@@ -16,13 +16,13 @@ The behavior labels used in the manuscript are:
 - **Recoverable Failure**: the unconditioned output misses the term, while terminology conditioning enables the correct realization.
 - **Residual Failure**: terminology conditioning still does not yield the target realization.
 
-The retained v5 builder reads precomputed candidate pools and emits \`preservation\`, \`rescue\`, and \`prompt_rescuable\` examples. These correspond to the stable-success and recoverable subsets used by training; residual failures are analyzed as failures, not emitted as positive supervised examples by this builder. The candidate-pool generation stages that feed the builder are not included.
+The retained v5 builder reads precomputed candidate pools and emits `preservation`, `rescue`, and `prompt_rescuable` examples. These correspond to the stable-success and recoverable subsets used by training; residual failures are analyzed as failures, not emitted as positive supervised examples by this builder. The candidate-pool generation stages that feed the builder are not included.
 
 Two independent LoRA adapters are trained: BO→ZH and ZH→BO. At inference, source-only retrieval uses the matching direction’s terminology index. The released final policy is deterministic **top-1**, not top-3: among exact source-side matches, the ranking implementation resolves overlaps and blocks ambiguous or bidirectional-conflict candidates. A retrieved term is added to the prompt and activates that direction’s adapter; a non-hit uses the TC-Backbone without a terminology adapter. This is prompt-conditioned adapter routing, not constrained decoding.
 
 ## Visual overview
 
-The three figures below are the original figures referenced by the final paper source (\`10_27.tex\`). They were converted directly from the paper's PDF artwork to SVG for inline GitHub rendering.
+The three figures below are the original figures referenced by the final paper source (`10_27.tex`). They were converted directly from the paper's PDF artwork to SVG for inline GitHub rendering.
 
 ### Figure 1. Terminology resource and adaptation-data construction
 
@@ -34,9 +34,9 @@ The three figures below are the original figures referenced by the final paper s
 ### Figure 2. Domain distribution of the terminology resource
 
 <p align="center">
-  <img src="assets/figure2_domain_distribution.svg" alt="Two-level domain distribution of the Tibetan–Chinese terminology resource" width="78%" />
+  <img src="assets/figure2_domain_distribution.svg" alt="Two-level domain distribution of the Tibetan–Chinese terminology resource" width="76%" />
 </p>
-<p align="center"><sub>The inner ring represents the nine first-level domains; the outer ring represents the 21 second-level categories and their percentages.</sub></p>
+<p align="center"><sub>The inner ring represents the nine first-level domains; the outer ring represents the 21 second-level categories.</sub></p>
 
 ### Figure 3. Overview of BATA
 
@@ -45,9 +45,20 @@ The three figures below are the original figures referenced by the final paper s
 </p>
 <p align="center"><sub>Direction-aware terminology retrieval, TC-Backbone adaptation, and behavior-aware direction-specific LoRA training.</sub></p>
 
+### Terminology resource summary
+
+| Item | Count |
+|---|---:|
+| Raw terminology records | 53,843 |
+| Existing-source records | 45,848 |
+| Self-collected records | 7,995 |
+| Unique normalized bilingual pairs | 45,432 |
+| Pairs with resolved domain labels | 44,974 (98.99%) |
+| Domain taxonomy | 9 first-level / 21 second-level categories |
+
 ## Experimental results
 
-The paper archive also contains supplementary result visualizations that are not referenced by the final \`10_27.tex\` figure list. They are included here because their plotted results correspond to the final paper's reported evaluation settings. The numerical tables below are transcribed from the final manuscript and should be treated as the authoritative values.
+The paper archive also contains two supplementary result visualizations that are not referenced in the final `10_27.tex` figure list. They are included here as additional views of the reported evaluation. The numerical tables below are transcribed from the final manuscript and should be treated as the authoritative values.
 
 ### Oracle terminology utilization
 
@@ -100,11 +111,22 @@ Under matched training-example counts and optimizer updates, BATA improves Stric
 | ZH→BO | Random LoRA | 1,481 | 186 | 34.35 | 33.61 |
 | ZH→BO | BATA | 1,481 | 186 | **83.30** | **37.48** |
 
-General-translation evaluation is also reported in the paper. Retrieval-routed BATA has dataset- and direction-dependent effects on BLEU, chrF++, and ROUGE-L; adapter activation does not guarantee preservation of every general-translation metric.
+### General translation quality
+
+The table reports changes in general-translation metrics when retrieval-routed BATA is used instead of TC-Backbone. Adapter activation is high on these benchmarks, but the metric changes are dataset- and direction-dependent.
+
+| Dataset | Direction | Adapter activation | ΔBLEU | ΔchrF++ | ΔROUGE-L |
+|---|---|---:|---:|---:|---:|
+| FLORES-200 | BO→ZH | 100.00% | -0.36 | -0.31 | -0.75 |
+| FLORES-200 | ZH→BO | 99.95% | +0.12 | -0.81 | +0.18 |
+| MiLiC-Eval | BO→ZH | 99.24% | -0.96 | -0.75 | -1.18 |
+| MiLiC-Eval | ZH→BO | 96.78% | -3.05 | -2.37 | -2.08 |
+| mitra-parallel | ZH→BO | 67.35% | -0.57 | -0.99 | -1.01 |
+| Ti-ChTrans | BO→ZH | 98.20% | -2.85 | -2.47 | -2.85 |
 
 ## Project structure
 
-\`\`\`text
+```text
 BATA/
 ├── README.md
 ├── assets/
@@ -130,9 +152,7 @@ BATA/
     │   └── ranking_v2/src/              # candidate ranking and frozen policy
     ├── rag_lora_final2000/src/           # preflight, prompts, inference, scoring
     └── unified_quality_evaluation_v1/    # BLEU, chrF++, ROUGE-L and term metrics
-\`\`\`
-
-Generated data, indexes, retrieval outputs, predictions, model weights, logs, and caches are deliberately excluded. Runtime files are written locally under the corresponding experiment directories.
+```
 
 ## Environment setup
 
