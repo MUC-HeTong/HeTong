@@ -160,30 +160,30 @@ The following collapsible sections provide the detailed tables from the final ma
 
 **Two-level domain taxonomy**
 
-| First-level domain | Second-level category | Pairs |
-|---|---|---:|
-| Politics, Law and Public Security | Political and Public Administration | 1,525 |
-|  | Law and Justice | 1,041 |
-|  | Military and Security | 967 |
-| Economy, Finance and Commerce | Finance and Economics | 1,333 |
-|  | Commerce, Services and Consumption | 1,180 |
-| Engineering, Construction and Transportation | Engineering Technology and Power | 1,709 |
-|  | Architecture and Real Estate | 592 |
-|  | Transportation and Aviation | 819 |
-| Agriculture, Food and Environment | Agriculture, Forestry, Animal Husbandry and Fisheries | 1,442 |
-|  | Food and Catering | 1,077 |
-|  | Environment and Energy | 818 |
-| Education, Culture, Religion and Media | Education and Training | 1,309 |
-|  | Culture, Arts, Media and Publishing | 2,417 |
-|  | Religion and Philosophy | 650 |
-| Information Technology and Internet | Information Technology and Internet | 2,536 |
-| Healthcare and Life Sciences | Healthcare | 5,477 |
-| Sports, Tourism and Leisure Geography | Sports | 629 |
-|  | Tourism Geography and Place Names | 1,230 |
-| Social Life and Named Entities | Social Life and General Concepts | 12,993 |
-|  | Everyday and General Expressions | 4,252 |
-|  | Person, Place and Other Proper Names | 978 |
-| **Resolved total** | **9 first-level / 21 second-level categories** | **44,974** |
+| First-level domain | Second-level category | L1 total | L2 pairs |
+|---|---|---:|---:|
+| Politics, Law and Public Security | Political and Public Administration | 3,533 | 1,525 |
+| Politics, Law and Public Security | Law and Justice | 3,533 | 1,041 |
+| Politics, Law and Public Security | Military and Security | 3,533 | 967 |
+| Economy, Finance and Commerce | Finance and Economics | 2,513 | 1,333 |
+| Economy, Finance and Commerce | Commerce, Services and Consumption | 2,513 | 1,180 |
+| Engineering, Construction and Transportation | Engineering Technology and Power | 3,120 | 1,709 |
+| Engineering, Construction and Transportation | Architecture and Real Estate | 3,120 | 592 |
+| Engineering, Construction and Transportation | Transportation and Aviation | 3,120 | 819 |
+| Agriculture, Food and Environment | Agriculture, Forestry, Animal Husbandry and Fisheries | 3,337 | 1,442 |
+| Agriculture, Food and Environment | Food and Catering | 3,337 | 1,077 |
+| Agriculture, Food and Environment | Environment and Energy | 3,337 | 818 |
+| Education, Culture, Religion and Media | Education and Training | 4,376 | 1,309 |
+| Education, Culture, Religion and Media | Culture, Arts, Media and Publishing | 4,376 | 2,417 |
+| Education, Culture, Religion and Media | Religion and Philosophy | 4,376 | 650 |
+| Information Technology and Internet | Information Technology and Internet | 2,536 | 2,536 |
+| Healthcare and Life Sciences | Healthcare | 5,477 | 5,477 |
+| Sports, Tourism and Leisure Geography | Sports | 1,859 | 629 |
+| Sports, Tourism and Leisure Geography | Tourism Geography and Place Names | 1,859 | 1,230 |
+| Social Life and Named Entities | Social Life and General Concepts | 18,223 | 12,993 |
+| Social Life and Named Entities | Everyday and General Expressions | 18,223 | 4,252 |
+| Social Life and Named Entities | Person, Place and Other Proper Names | 18,223 | 978 |
+| **Resolved total** | **9 first-level / 21 second-level categories** | **44,974** | **44,974** |
 
 </details>
 
