@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="850" viewBox="0 0 1440 850" role="img" aria-labelledby="t d">
+<title id="t">BATA framework for Tibetan-Chinese machine translation</title>
+<desc id="d">Three modules: direction-aware terminology retrieval, Tibetan-Chinese backbone adaptation, and behavior-aware direction-specific LoRA adaptation.</desc>
+<defs><marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+<style>.h{font:700 25px Arial,sans-serif}.sh{font:700 20px Arial,sans-serif}.tx{font:17px Arial,sans-serif}.sm{font:15px Arial,sans-serif}.big{font:700 29px Arial,sans-serif}</style></defs>
+<rect width="1440" height="850" fill="#ffffff"/>
+<text x="35" y="45" class="h" fill="#172554">BATA: BEHAVIOR-AWARE TERMINOLOGY ADAPTATION</text>
+<rect x="25" y="75" width="430" height="680" rx="20" fill="#f0faf1" stroke="#8bc99b" stroke-width="2"/>
+<rect x="25" y="75" width="430" height="65" rx="20" fill="#d8f3df"/>
+<text x="50" y="116" class="h" fill="#176534">1 · Terminology KB &amp; Retrieval</text>
+<rect x="55" y="165" width="370" height="150" rx="14" fill="#ffffff" stroke="#9bcfa8"/>
+<text x="78" y="198" class="sh" fill="#176534">Bilingual terminology entry</text>
+<text x="78" y="235" class="tx" fill="#334155">eᵢ = (source term, target term, metadata)</text>
+<rect x="78" y="255" width="145" height="40" rx="9" fill="#e3efff"/><text x="150" y="281" text-anchor="middle" class="sm" fill="#1e40af">BO → ZH index</text>
+<rect x="250" y="255" width="145" height="40" rx="9" fill="#ffe8ef"/><text x="322" y="281" text-anchor="middle" class="sm" fill="#9d174d">ZH → BO index</text>
+<path d="M240 315 V340" stroke="#64748b" stroke-width="3" marker-end="url(#a3)"/>
+<rect x="55" y="350" width="370" height="210" rx="14" fill="#ffffff" stroke="#9bcfa8"/>
+<text x="78" y="384" class="sh" fill="#176534">Direction-aware candidate processing</text>
+<rect x="80" y="405" width="320" height="42" rx="9" fill="#edf8ef"/><text x="240" y="432" text-anchor="middle" class="tx" fill="#334155">1. Source-side term matching</text>
+<rect x="80" y="458" width="320" height="42" rx="9" fill="#edf8ef"/><text x="240" y="485" text-anchor="middle" class="tx" fill="#334155">2. Conflict / uniqueness filtering</text>
+<rect x="80" y="511" width="320" height="36" rx="9" fill="#edf8ef"/><text x="240" y="535" text-anchor="middle" class="tx" fill="#334155">3. Deterministic source-side ranking</text>
+<rect x="55" y="585" width="370" height="130" rx="14" fill="#ffffff" stroke="#9bcfa8"/>
+<text x="78" y="620" class="sh" fill="#176534">Retrieval result</text>
+<text x="78" y="654" class="tx" fill="#334155">Valid term → bilingual prompt condition</text>
+<text x="78" y="684" class="tx" fill="#334155">No valid term → backbone-only fallback</text>
+<path d="M455 420 H490" stroke="#64748b" stroke-width="4" marker-end="url(#a3)"/>
+<rect x="495" y="75" width="430" height="680" rx="20" fill="#eff6ff" stroke="#8ab7ef" stroke-width="2"/>
+<rect x="495" y="75" width="430" height="65" rx="20" fill="#dcecff"/>
+<text x="520" y="116" class="h" fill="#1d4ed8">2 · TC-Backbone Adaptation</text>
+<rect x="530" y="165" width="360" height="150" rx="14" fill="#ffffff" stroke="#a9c9f2"/>
+<text x="710" y="198" text-anchor="middle" class="sh" fill="#1d4ed8">Hy-MT2-7B</text>
+<text x="710" y="229" text-anchor="middle" class="tx" fill="#334155">Multilingual translation model</text>
+<text x="710" y="268" text-anchor="middle" class="big" fill="#1d4ed8">≈ 570K</text>
+<text x="710" y="294" text-anchor="middle" class="sm" fill="#475569">Tibetan–Chinese parallel pairs</text>
+<path d="M710 315 V350" stroke="#64748b" stroke-width="3" marker-end="url(#a3)"/>
+<text x="710" y="385" text-anchor="middle" class="sh" fill="#1d4ed8">Full-parameter supervised fine-tuning</text>
+<rect x="530" y="410" width="360" height="205" rx="16" fill="#ffffff" stroke="#a9c9f2"/>
+<rect x="570" y="445" width="280" height="64" rx="12" fill="#dcecff" stroke="#8ab7ef"/>
+<text x="710" y="485" text-anchor="middle" class="big" fill="#1d4ed8">TC-Backbone</text>
+<text x="710" y="550" text-anchor="middle" class="tx" fill="#334155">Shared translation foundation</text>
+<text x="710" y="580" text-anchor="middle" class="tx" fill="#334155">General Tibetan ↔ Chinese capability</text>
+<rect x="530" y="645" width="360" height="70" rx="12" fill="#e4f0ff" stroke="#a9c9f2"/>
+<text x="710" y="674" text-anchor="middle" class="sh" fill="#1d4ed8">Frozen during BATA LoRA training</text>
+<text x="710" y="698" text-anchor="middle" class="sm" fill="#475569">Provides initialization and behavior reference</text>
+<path d="M925 420 H960" stroke="#64748b" stroke-width="4" marker-end="url(#a3)"/>
+<rect x="965" y="75" width="450" height="680" rx="20" fill="#fff5ef" stroke="#f2ad8b" stroke-width="2"/>
+<rect x="965" y="75" width="450" height="65" rx="20" fill="#ffe6d9"/>
+<text x="990" y="116" class="h" fill="#c2410c">3 · Behavior-aware LoRA</text>
+<rect x="1000" y="165" width="380" height="105" rx="14" fill="#ffffff" stroke="#efb18f"/>
+<text x="1190" y="199" text-anchor="middle" class="sh" fill="#9a3412">Behavior-aware training data</text>
+<text x="1190" y="231" text-anchor="middle" class="tx" fill="#334155">Sentence pairs + trusted terminology</text>
+<text x="1190" y="254" text-anchor="middle" class="sm" fill="#64748b">Stable Success · Recoverable · Residual</text>
+<path d="M1190 270 V300" stroke="#64748b" stroke-width="3" marker-end="url(#a3)"/>
+<rect x="1000" y="310" width="380" height="75" rx="14" fill="#e8f2ff" stroke="#a9c9f2"/>
+<text x="1190" y="341" text-anchor="middle" class="sh" fill="#1d4ed8">Frozen TC-Backbone</text>
+<text x="1190" y="366" text-anchor="middle" class="sm" fill="#475569">Shared base parameters</text>
+<text x="1190" y="420" text-anchor="middle" class="big" fill="#c2410c">+</text>
+<rect x="1000" y="445" width="180" height="105" rx="14" fill="#ffffff" stroke="#efb18f"/>
+<text x="1090" y="480" text-anchor="middle" class="sh" fill="#9a3412">LoRA</text>
+<text x="1090" y="510" text-anchor="middle" class="tx" fill="#334155">BO → ZH</text>
+<text x="1090" y="535" text-anchor="middle" class="sm" fill="#64748b">Trainable adapter</text>
+<rect x="1200" y="445" width="180" height="105" rx="14" fill="#ffffff" stroke="#efb18f"/>
+<text x="1290" y="480" text-anchor="middle" class="sh" fill="#9a3412">LoRA</text>
+<text x="1290" y="510" text-anchor="middle" class="tx" fill="#334155">ZH → BO</text>
+<text x="1290" y="535" text-anchor="middle" class="sm" fill="#64748b">Trainable adapter</text>
+<path d="M1090 550 V580 H1190 M1290 550 V580 H1190 V600" stroke="#64748b" stroke-width="3" fill="none" marker-end="url(#a3)"/>
+<rect x="1000" y="610" width="380" height="105" rx="14" fill="#ffffff" stroke="#efb18f"/>
+<text x="1190" y="649" text-anchor="middle" class="sh" fill="#9a3412">Translation generation</text>
+<text x="1190" y="680" text-anchor="middle" class="tx" fill="#334155">Complete sentence with supplied term</text>
+<text x="1190" y="702" text-anchor="middle" class="sm" fill="#64748b">Direction selects the corresponding adapter</text>
+<rect x="25" y="780" width="1390" height="45" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="720" y="809" text-anchor="middle" class="tx" fill="#475569">Retrieval supplies bilingual terminology · TC-Backbone provides general translation · Direction-specific LoRA learns terminology realization</text>
+</svg>
